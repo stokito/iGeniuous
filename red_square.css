@@ -1,0 +1,68 @@
+#box {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    /*left: 205px;*/
+    /*top: 205px;*/
+    background-color: #990000;
+    cursor: pointer;
+}
+
+.enemy {
+    background-color: #000099;
+}
+
+#enemy0 {
+    width: 60px;
+    height: 50px;
+    position: absolute;
+    /*left: 270px;*/
+    /*top: 60px;*/
+}
+
+#enemy1 {
+    width: 100px;
+    height: 20px;
+    position: absolute;
+    /*left: 300px;*/
+    /*top: 330px;*/
+}
+
+#enemy2 {
+    width: 30px;
+    height: 60px;
+    position: absolute;
+    /*left: 70px;*/
+    /*top: 320px;*/
+}
+
+#enemy3 {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    /*left: 70px;*/
+    /*top: 70px;*/
+}
+
+#info_pane {
+    width: 100%;
+}
+
+#field {
+    padding: 25px;
+    background-color: black;
+
+    width: 400px;
+    height: 400px;
+    /*overflow: hidden;*/
+}
+
+#arena {
+    background-color: white;
+
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+
+    position: relative;
+}
