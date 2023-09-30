@@ -1,15 +1,15 @@
-var speed = 40; // min=1 max=40
-var next = 0; // min=0 max=9
-var moving = false;
-var touch = false;
-var started = false;
-var startTime;
-var box_dx, box_dy;
+let speed = 40; // min=1 max=40
+let next = 0; // min=0 max=9
+let moving = false;
+let touch = false;
+let started = false;
+let startTime;
+let box_dx, box_dy;
 
-var enemies;
-var box;
-var field, arena;
-var enemies_pos = [
+let enemies;
+let box;
+let field, arena;
+let enemies_pos = [
 	{left: 270, top: 60},
 	{left: 300, top: 330},
 	{left: 70, top: 320},
@@ -24,13 +24,13 @@ $(document).ready(function() {
 //    enemies = $("#enemy0");
 	newGame();
 
-//        var lidersBox = document.getElementById("liders");
+//        let leadersBox = document.getElementById("leaders");
 //        VK.api('getHighScores', function(data) {
 //            if (data.response) {
 //                // data.response is object
-//                for (var usk in data.response) {
-//                    var userScore = data.response[usk];
-//                    lidersBox.innerHTML += userScore.user_name + " " + userScore.score + "<br />";
+//                for (let usk in data.response) {
+//                    let userScore = data.response[usk];
+//                    leadersBox.innerHTML += userScore.user_name + " " + userScore.score + "<br />";
 //                }
 //            }
 //        });
@@ -46,7 +46,7 @@ function newGame() {
 	started = false;
 
 	enemies.each(function(index) {
-		var enemy = $(this);
+		let enemy = $(this);
 		enemy.data({step_x: randomStep(), step_y: randomStep(), dir_x: randomDir(), dir_y: randomDir()});
 		setEnemyPos(enemy, enemies_pos[index]);
 	});
@@ -56,7 +56,7 @@ function newGame() {
 }
 
 function setBoxToArenaCenter() {
-	var center = {
+	let center = {
 		left: (arena.width() - box.width()) / 2,
 		top: (arena.height() - box.height()) / 2
 	};
@@ -95,10 +95,10 @@ function setEnemyPos(enemy, enemyPos) {
 function checkTouching() {
 	if (!this)
 		return;
-	var enemy = $(this);
-	var difX = box.position().left - enemy.position().left;
+	let enemy = $(this);
+	let difX = box.position().left - enemy.position().left;
 	if (difX > -40 && difX < enemy.width()) {
-		var difY = box.position().top - enemy.position().top;
+		let difY = box.position().top - enemy.position().top;
 		if (difY > -40 && difY < enemy.height()) {
 			window.console.log("fail");
 			touch = true;
@@ -110,30 +110,30 @@ function checkTouching() {
 function moveEnemy(enemyElement) {
 	if (!enemyElement)
 		enemyElement = this;
-	var enemy = $(enemyElement);
+	let enemy = $(enemyElement);
 	window.console.log("moveEnemy enemy=" + enemyElement.id);
-	var dir_x = enemy.data("dir_x");
-	var dir_y = enemy.data("dir_y");
+	let dir_x = enemy.data("dir_x");
+	let dir_y = enemy.data("dir_y");
 
-	var step_x = enemy.data("step_x");
-	var step_y = enemy.data("step_y");
+	let step_x = enemy.data("step_x");
+	let step_y = enemy.data("step_y");
 
-	var distance_x = (dir_x == -1) ? enemy.position().left : (arena.width() - (enemy.position().left + enemy.width()));
-	var distance_y = (dir_y == -1) ? enemy.position().top : (arena.height() - (enemy.position().top + enemy.height()));
+	let distance_x = (dir_x === -1) ? enemy.position().left : (arena.width() - (enemy.position().left + enemy.width()));
+	let distance_y = (dir_y === -1) ? enemy.position().top : (arena.height() - (enemy.position().top + enemy.height()));
 
-	var time_x = distance_x / step_x;
-	var time_y = distance_y / step_y;
+	let time_x = distance_x / step_x;
+	let time_y = distance_y / step_y;
 
-	var targetPos = {};
-	var duration_time;
+	let targetPos = {};
+	let duration_time;
 	if (time_x <= time_y) {  // Куда ближе?
 		duration_time = time_x;
-		targetPos.left = (dir_x == -1) ? 0 : (arena.width() - enemy.width());
+		targetPos.left = (dir_x === -1) ? 0 : (arena.width() - enemy.width());
 		targetPos.top = enemy.position().top + dir_y * (step_y * time_x);
 		enemy.data("dir_x", -dir_x);
 	} else {
 		duration_time = time_y;
-		targetPos.top = (dir_y == -1) ? 0 : (arena.height() - enemy.height());
+		targetPos.top = (dir_y === -1) ? 0 : (arena.height() - enemy.height());
 		targetPos.left = enemy.position().left + dir_x * (step_x * time_y);
 		enemy.data("dir_y", -dir_y);
 	}
@@ -151,7 +151,7 @@ function moveEnemies() {
 	next++;
 	// after each 10 moving increase speed
 //    speed = 40;
-	if (speed < 40 && (next % 5 == 0)) {
+	if (speed < 40 && (next % 5 === 0)) {
 		speed += 10;
 	}
 	window.console.log("moveEnemies: time=" + calcTime() + " speed=" + speed + " next=" + next);
@@ -187,7 +187,7 @@ function stop() {
 }
 
 function reset() {
-	var finalTime = calcTime();
+	let finalTime = calcTime();
 	stop();
 	$(box).unbind();
 	enemies.stop();
@@ -197,8 +197,8 @@ function reset() {
 }
 
 function getBoxPos(mouseEvent) {
-	var curX = mouseEvent.pageX - arena.position().left;
-	var curY = mouseEvent.pageY - arena.position().top;
+	let curX = mouseEvent.pageX - arena.position().left;
+	let curY = mouseEvent.pageY - arena.position().top;
 	if (box_dx == undefined || box_dy == undefined) {
 		box_dx = curX - box.position().left;
 		box_dy = curY - box.position().top;
@@ -210,9 +210,9 @@ function getBoxPos(mouseEvent) {
  * Mouse move on arena event handler.
  */
 function mouseMoveOnBox(mouseEvent) {
-	var boxPos = getBoxPos(mouseEvent);
+	let boxPos = getBoxPos(mouseEvent);
 	setEnemyPos(box, boxPos);
-	var boxBounds = boxPos;
+	let boxBounds = boxPos;
 	boxBounds.right =  boxPos.left + box.width();
 	boxBounds.bottom = boxPos.top + box.height();
 	if (isBoxTouchedBorders(boxBounds)) {
