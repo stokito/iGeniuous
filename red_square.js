@@ -1,3 +1,10 @@
+class BoxPos {
+  /** @type number */
+  top
+  /** @type number */
+  left
+}
+
 let speed = 40 // min=1 max=40
 let next = 0 // min=0 max=9
 let moving = false
@@ -9,6 +16,7 @@ let box_dx, box_dy
 let enemies
 let box
 let field, arena
+/** @type BoxPos[]} */
 let enemies_pos = [
   { left: 270, top: 60 },
   { left: 300, top: 330 },
@@ -70,7 +78,7 @@ function randomStep () {
 }
 
 /**
- * @returns 1 or -1
+ * @returns {1,-1}
  */
 function randomDir () {
   return Math.random() < 0.5 ? -1 : 1
@@ -84,6 +92,10 @@ function calcTime () {
   return Math.round($.now() - startTime)
 }
 
+/**
+ * @param enemy
+ * @param {BoxPos} enemyPos
+ */
 function setEnemyPos (enemy, enemyPos) {
   enemy.css(enemyPos)
 }
@@ -92,8 +104,9 @@ function setEnemyPos (enemy, enemyPos) {
  * Check to see if box is touching enemy
  */
 function checkTouching () {
-  if (!this)
+  if (!this) {
     return
+  }
   let enemy = $(this)
   let difX = box.position().left - enemy.position().left
   if (difX > -40 && difX < enemy.width()) {
@@ -107,8 +120,9 @@ function checkTouching () {
 }
 
 function moveEnemy (enemyElement) {
-  if (!enemyElement)
+  if (!enemyElement) {
     enemyElement = this
+  }
   let enemy = $(enemyElement)
   window.console.log('moveEnemy enemy=' + enemyElement.id)
   let dir_x = enemy.data('dir_x')
@@ -195,6 +209,11 @@ function reset () {
 //    VK.api('setUserScore', { score: finalTime });
 }
 
+
+/**
+ * @param {MouseEvent} mouseEvent
+ * @return {BoxPos}
+ */
 function getBoxPos (mouseEvent) {
   let curX = mouseEvent.pageX - arena.position().left
   let curY = mouseEvent.pageY - arena.position().top
@@ -220,6 +239,10 @@ function mouseMoveOnBox (mouseEvent) {
   return false
 }
 
+/**
+ * @param boxBounds
+ * @return {boolean}
+ */
 function isBoxTouchedBorders (boxBounds) {
   return !(boxBounds.left > 0 && boxBounds.top > 0 && boxBounds.right < arena.width() && boxBounds.bottom < arena.height())
 }
